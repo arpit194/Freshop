@@ -1,0 +1,93 @@
+.cartItem {
+  display: flex;
+  width: 100%;
+  aspect-ratio: 2;
+  margin-bottom: 30px;
+}
+
+.itemImage {
+  width: 50%;
+  background-image: url(../../public/images/categories/fruits.jpg);
+  background-position: center;
+  background-size: cover;
+  border-radius: 10px;
+}
+
+.details {
+  padding: 0px 10px;
+  width: 50%;
+}
+
+.itemName {
+  font-weight: bold;
+  font-size: 1vw;
+  color: var(--green);
+}
+
+.itemPrice {
+  font-weight: 300;
+  font-size: 1vw;
+  color: var(--dark);
+}
+
+.options {
+  padding: 10px 0px;
+  width: 100%;
+}
+
+.quantity {
+  width: 50%;
+  height: 100%;
+  display: flex;
+}
+
+.quantityButton {
+  background-color: var(--green);
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: var(--light);
+  cursor: pointer;
+}
+
+.sub {
+  border-radius: 5px 0px 0px 5px;
+}
+
+.add {
+  border-radius: 0px 5px 5px 0px;
+}
+
+.quantity input {
+  border: none;
+  outline: none;
+  width: 50%;
+  text-align: center;
+  color: var(--dark);
+}
+
+.totalPrice {
+  font-weight: 600;
+  font-size: 1vw;
+}
+
+@media only screen and (min-width: 0px) and (max-width: 480px) {
+  .itemName {
+    font-size: 3vw;
+  }
+
+  .itemPrice {
+    font-size: 3vw;
+  }
+
+  .quantity {
+    width: 100%;
+  }
+
+  .totalPrice {
+    font-weight: 600;
+    font-size: 3vw;
+  }
+}
