@@ -11,7 +11,8 @@
   aspect-ratio: 2;
   background-image: url(../../public/images/categories/fruits.jpg);
   background-position: center;
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
   border-radius: 10px;
 }
 
@@ -41,6 +42,20 @@
   color: var(--orange);
 }
 
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  animation: 1s spin infinite linear;
+  color: #ccc;
+}
+
 @media only screen and (min-width: 0px) and (max-width: 480px) {
   .wishItem {
     margin-bottom: 20px;
@@ -48,9 +63,9 @@
 
   .itemImage {
     width: 100%;
-    background-image: url(../../public/images/categories/fruits.jpg);
     background-position: center;
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
     border-radius: 10px;
   }
 

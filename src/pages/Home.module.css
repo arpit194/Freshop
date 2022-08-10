@@ -61,6 +61,8 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
+  position: relative;
+  min-height: 25vh;
 }
 
 @media only screen and (min-width: 0px) and (max-width: 480px) {

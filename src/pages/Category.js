@@ -6,18 +6,19 @@ import { useSelector } from "react-redux";
 import { Loading } from "../components/Loading";
 
 const Category = () => {
-  const {sendRequest , loading , error} = useHttpClient();
-    const [productList , setProductList] = useState([]);
-    const {id , categoryName , imageUrl} = useSelector((state)=>state.nav.category)
+  const { sendRequest, loading, error } = useHttpClient();
+  const [productList, setProductList] = useState([]);
+  const { id, categoryName, imageUrl } = useSelector(
+    (state) => state.nav.category
+  );
 
-
-    useEffect(() => {
-        const getProducts= async() => {
-            const products = await sendRequest(`product/${id}` )
-            setProductList(products)
-        }
-        getProducts()
-    },[])
+  useEffect(() => {
+    const getProducts = async () => {
+      const products = await sendRequest(`product/${id}`);
+      setProductList(products);
+    };
+    getProducts();
+  }, []);
   return (
     <div className={classes.categoryContainer}>
       {/* Header */}
@@ -28,11 +29,12 @@ const Category = () => {
         ></div>
         <div className={classes.headerContent}>{categoryName}</div>
       </div>
-      {loading && <Loading/> }
       {/* Items */}
       <div className={classes.items}>
-        
-        {productList.map(product => <Item key={product.id} product={product}/>)}
+        {loading && <Loading />}
+        {productList.map((product) => (
+          <Item key={product.id} product={product} />
+        ))}
       </div>
     </div>
   );

@@ -47,6 +47,8 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
   margin: 0 auto;
+  min-height: 25vh;
+  position: relative;
 }
 
 @media only screen and (min-width: 0px) and (max-width: 480px) {

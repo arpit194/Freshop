@@ -1,8 +1,7 @@
 import React, { useCallback, useState } from "react";
-import { useSelector , useDispatch } from "react-redux";
-import Login from "../pages/Login";
-import { authActions } from "../Store/Auth";
+import { useSelector, useDispatch } from "react-redux";
 import { NavActions } from "../Store/Navigation";
+import { wishActions } from "../Store/Wishlist";
 import { useHttpClient } from "./http-hook";
 
 const useWishlist = () => {
@@ -24,8 +23,11 @@ const useWishlist = () => {
         JSON.stringify(item),
         { "Content-Type": "application/json" }
       );
-      if (data.success) setWishlisted(true);
-    } else if (!isLoggedIn) dispatch(NavActions.setPage("login"))
+      if (data.success) {
+        setWishlisted(true);
+        dispatch(wishActions.addItem(item));
+      }
+    } else if (!isLoggedIn) dispatch(NavActions.setPage("login"));
     else if (wishlisted && isLoggedIn) {
       const data = await sendRequest(
         `/wishlist/${token}/${item.id}`,
@@ -36,10 +38,11 @@ const useWishlist = () => {
       if (data.success) {
         setWishlisted(false);
         type = "delete";
+        dispatch(wishActions.deleteItem(item.id));
       }
     }
 
-    return {itemId : item.id,  type};
+    return { item: item, type };
   });
 
   const checkWishlist = useCallback(async (id) => {
@@ -51,7 +54,7 @@ const useWishlist = () => {
     } else setWishlisted(false);
   });
 
-  return { setWishlist, wishlisted, checkWishlist };
+  return { setWishlist, wishlisted, checkWishlist, wishlistLoading: loading };
 };
 
 export default useWishlist;
