@@ -5,6 +5,7 @@ const initialState = {
   previousPage: "home",
   cartOpen: false,
   wishlistOpen: false,
+  category : {} ,
 };
 
 const NavSlice = createSlice({
@@ -16,6 +17,7 @@ const NavSlice = createSlice({
       state.currentPage = action.payload;
       state.cartOpen = false;
       state.wishlistOpen = false;
+      state.category = {} ;
     },
     setCart: (state) => {
       state.cartOpen = !state.cartOpen;
@@ -25,6 +27,13 @@ const NavSlice = createSlice({
       state.wishlistOpen = !state.wishlistOpen;
       state.cartOpen = false;
     },
+    setCategory: (state ,action) =>{
+      state.previousPage = state.currentPage;
+      state.currentPage = action.payload.page;
+      state.category = action.payload.category;
+      state.cartOpen = false;
+      state.wishlistOpen = false;
+    }
   },
 });
 

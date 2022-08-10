@@ -17,18 +17,13 @@ function App() {
     cartOpen,
     wishlistOpen,
   } = useSelector((state) => state.nav);
-  useEffect(() => {
-    const makeRequest = async () => {
-      const data = await sendRequest("https://opentdb.com/api.php?amount=10");
-    };
-    makeRequest();
-  }, [sendRequest]);
-
+  
   return (
     <div className={classes.App}>
       <Nav />
       {page === "home" && <Home />}
       {page === "login" && <Login />}
+      {page === "category" && <Category />}
       {cartOpen && <Cart />}
       {wishlistOpen && <Wishlist />}
     </div>

@@ -1,31 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./Category.module.css";
 import Item from "../components/Item";
+import { useHttpClient } from "../hooks/http-hook";
+import { useSelector } from "react-redux";
+import { Loading } from "../components/Loading";
 
 const Category = () => {
+  const {sendRequest , loading , error} = useHttpClient();
+    const [productList , setProductList] = useState([]);
+    const {id , categoryName , imageUrl} = useSelector((state)=>state.nav.category)
+
+
+    useEffect(() => {
+        const getProducts= async() => {
+            const products = await sendRequest(`product/${id}` )
+            setProductList(products)
+        }
+        getProducts()
+    },[])
   return (
     <div className={classes.categoryContainer}>
       {/* Header */}
       <div className={classes.header}>
         <div
           className={classes.headerImage}
-          style={{ backgroundImage: "url(images/categories/fruits.jpg)" }}
+          style={{ backgroundImage: `url(${imageUrl})` }}
         ></div>
-        <div className={classes.headerContent}>Fruits and Vegetables</div>
+        <div className={classes.headerContent}>{categoryName}</div>
       </div>
-
+      {loading && <Loading/> }
       {/* Items */}
       <div className={classes.items}>
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
+        
+        {productList.map(product => <Item key={product.id} product={product}/>)}
       </div>
     </div>
   );

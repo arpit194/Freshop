@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useSelector , useDispatch } from "react-redux";
+import Login from "../pages/Login";
+import { authActions } from "../Store/Auth";
+import { NavActions } from "../Store/Navigation";
 import { useHttpClient } from "./http-hook";
 
 const useWishlist = () => {
@@ -8,8 +10,10 @@ const useWishlist = () => {
   const { isAuthenticated: isLoggedIn, token } = useSelector(
     (state) => state.auth
   );
-  const nav = useNavigate();
+  //const nav = useNavigate();
   const { sendRequest, loading, error } = useHttpClient();
+
+  const dispatch = useDispatch();
 
   const setWishlist = useCallback(async (item) => {
     let type = "add";
@@ -21,7 +25,7 @@ const useWishlist = () => {
         { "Content-Type": "application/json" }
       );
       if (data.success) setWishlisted(true);
-    } else if (!isLoggedIn) nav("/login");
+    } else if (!isLoggedIn) dispatch(NavActions.setPage("login"))
     else if (wishlisted && isLoggedIn) {
       const data = await sendRequest(
         `/wishlist/${token}/${item.id}`,

@@ -1,16 +1,16 @@
 import React from "react";
 import classes from "./CategoryCard.module.css";
 
-const CategoryCard = () => {
+const CategoryCard = ({category , onClick}) => {
   return (
-    <div className={classes.categoryCard}>
+    <div onClick={()=>onClick(category)} className={classes.categoryCard}>
       <div
         className={classes.categoryImage}
         style={{
-          backgroundImage: "url(images/categories/fruits.jpg)",
+          backgroundImage: `url(${category.imageUrl})`,
         }}
       ></div>
-      <div className={classes.categoryName}>Fruits and Vegetables</div>
+      <div className={classes.categoryName}>{category.categoryName}</div>
     </div>
   );
 };

@@ -1,14 +1,14 @@
 import React, { useCallback, useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useSelector , useDispatch} from "react-redux";
+import { NavActions } from "../Store/Navigation";
 import { useHttpClient } from "./http-hook";
 
 const useAddToCart = () => {
   const { isAuthenticated: isLoggedIn, token } = useSelector(
     (state) => state.auth
   );
-  const nav = useNavigate();
   const { sendRequest, loading, error } = useHttpClient();
+  const dispatch = useDispatch()
 
   const addToCart = useCallback(async (item, qty) => {
     if (isLoggedIn) {
@@ -25,7 +25,7 @@ const useAddToCart = () => {
       if (!data.success) {
         alert(data.message);
       }
-    } else nav("/login");
+    } else dispatch(NavActions.setPage("login"))
   });
 
   return { addToCart };
