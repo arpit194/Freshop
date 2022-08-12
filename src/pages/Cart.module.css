@@ -59,6 +59,7 @@
   margin: 0 auto;
   color: var(--light);
   text-align: center;
+  cursor: pointer;
 }
 
 @keyframes spin {

@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { wishActions } from "../Store/Wishlist";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { NavActions } from "../Store/Navigation";
 
 const Item = ({ product }) => {
   const { setWishlist, wishlisted, checkWishlist, wishlistLoading } =
@@ -42,7 +43,6 @@ const Item = ({ product }) => {
 
   const cart = async () => {
     const data = await addToCart(product, qty);
-    console.log(data);
     if (data.success) {
       toast.success("Added to cart", {
         theme: "light",
@@ -68,6 +68,10 @@ const Item = ({ product }) => {
     }
   };
 
+  const selectItem = (product) => {
+    dispatch(NavActions.setItem({ page: "item", product }));
+  };
+
   return (
     <div className={classes.itemCard}>
       <div
@@ -75,8 +79,18 @@ const Item = ({ product }) => {
         style={{
           backgroundImage: `url(${product.imageURL})`,
         }}
+        onClick={() => {
+          selectItem(product);
+        }}
       ></div>
-      <div className={classes.itemName}>{product.name}</div>
+      <div
+        className={classes.itemName}
+        onClick={() => {
+          selectItem(product);
+        }}
+      >
+        {product.name}
+      </div>
       <div className={classes.price}>₹ {product.price}</div>
       <div className={classes.itemOptions}>
         <div className={classes.quantity}>

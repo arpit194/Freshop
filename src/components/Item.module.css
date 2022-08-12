@@ -17,6 +17,7 @@
   background-size: contain;
   background-repeat: no-repeat;
   border-bottom: 2px solid var(--green);
+  cursor: pointer;
 }
 
 .itemImage img {
@@ -32,6 +33,7 @@
   color: var(--dark);
   font-size: 1.25vw;
   text-align: center;
+  cursor: pointer;
 }
 
 .price {

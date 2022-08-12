@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import classes from "./CartItem.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faMinus,
+  faTrash,
+  faCircleNotch,
+} from "@fortawesome/free-solid-svg-icons";
 import { useHttpClient } from "../hooks/http-hook";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
@@ -10,19 +15,19 @@ import { cartActions } from "../Store/Cart";
 
 const CartItem = ({ product }) => {
   const [qty, setQty] = useState(product.quantity);
-  const { sendRequest, loading, error } = useHttpClient();
+  const { sendRequest, loading } = useHttpClient();
   const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
 
   const setQuantity = (type) => {
-    if (type == "dec") {
+    if (type === "dec") {
       if (qty > 1) {
         setQty(qty - 1);
         updateCost(product.id, product.product.id, qty - 1);
       } else if (qty === 1) {
         deleteCartItem(product.id, product.product.id);
       }
-    } else if (type == "inc") {
+    } else if (type === "inc") {
       if (qty < 5) {
         setQty(qty + 1);
         updateCost(product.id, product.product.id, qty + 1);
@@ -76,14 +81,6 @@ const CartItem = ({ product }) => {
         position: "bottom-right",
       });
     }
-
-    // if (data.success) {
-    //   const newCart = cartItems.filter((item) => item.id !== id);
-    //   setCartItems(newCart);
-    //   let cost = 0;
-    //   newCart.forEach((item) => (cost += item.product.price * item.quantity));
-    //   setTotalCost(cost);
-    // }
   };
 
   return (
@@ -96,7 +93,20 @@ const CartItem = ({ product }) => {
       ></div>
       <div className={classes.details}>
         <div className={classes.itemName}>{product.product.name}</div>
-        <div className={classes.itemPrice}>₹ {product.product.price}</div>
+        <div className={classes.itemPrice}>
+          ₹ {product.product.price}
+          {loading ? (
+            <FontAwesomeIcon icon={faCircleNotch} className={classes.spinner} />
+          ) : (
+            <FontAwesomeIcon
+              icon={faTrash}
+              onClick={() => {
+                deleteCartItem(product.id, product.product.id);
+              }}
+              className={classes.trash}
+            />
+          )}
+        </div>
         <div className={classes.options}>
           <div className={classes.quantity}>
             <div

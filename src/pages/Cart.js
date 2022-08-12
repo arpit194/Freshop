@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import classes from "./Cart.module.css";
 import CartItem from "../components/CartItem";
 import { useHttpClient } from "../hooks/http-hook";
@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { cartActions } from "../Store/Cart";
 
 const Cart = () => {
-  const { sendRequest, loading, error } = useHttpClient();
+  const { sendRequest, loading } = useHttpClient();
   const token = useSelector((state) => state.auth.token);
   const { cartItemDtos: cart, totalCost } = useSelector(
     (state) => state.cart.cart
@@ -28,11 +28,13 @@ const Cart = () => {
       };
     });
     const { sessionId } = await sendRequest(
-      "/order/create-checkout-session",
+      "order/create-checkout-session?base=" + window.location.toString(),
       "POST",
       JSON.stringify(body),
       { "Content-Type": "application/json" }
     );
+
+    console.log(sessionId);
 
     await stripe.redirectToCheckout({
       sessionId: sessionId,
@@ -44,7 +46,8 @@ const Cart = () => {
       const cart = await sendRequest(`cart/?token=${token}`);
       dispatch(cartActions.setCart(cart));
     };
-    if (cart.length == 0) getCart();
+    // if (cart.length === 0)
+    getCart();
   }, []);
   return (
     <div className={`${classes.cartContainer}`}>
@@ -59,7 +62,9 @@ const Cart = () => {
       </div>
       <div className={classes.orderContainer}>
         <div className={classes.finalPrice}>Total Price: Rs {totalCost}</div>
-        <div className={classes.orderButton}>Order</div>
+        <div className={classes.orderButton} onClick={checkout}>
+          Order
+        </div>
       </div>
     </div>
   );

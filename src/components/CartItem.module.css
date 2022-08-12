@@ -27,6 +27,13 @@
   font-weight: 300;
   font-size: 1vw;
   color: var(--dark);
+  display: flex;
+  justify-content: space-between;
+}
+
+.trash {
+  color: var(--dark);
+  cursor: pointer;
 }
 
 .options {
@@ -67,6 +74,16 @@
   color: var(--dark);
 }
 
+.quantity input::-webkit-outer-spin-button,
+.quantity input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.quantity input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 .totalPrice {
   font-weight: 600;
   font-size: 1vw;
@@ -76,6 +93,20 @@
   background-color: #ccc;
   cursor: not-allowed;
   pointer-events: none;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  animation: 1s spin infinite linear;
+  color: #ccc;
 }
 
 @media only screen and (min-width: 0px) and (max-width: 480px) {
