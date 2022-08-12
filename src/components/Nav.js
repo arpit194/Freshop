@@ -18,7 +18,12 @@ const Nav = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
   return (
     <div className={classes.nav}>
-      <div className={classes.brandName}>Freshop</div>
+      <div
+        className={classes.brandName}
+        onClick={() => dispatch(NavActions.setPage("home"))}
+      >
+        Freshop
+      </div>
       <div className={classes.navLinks}>
         <div
           className={`${classes.navLink} ${page === "home" && classes.active}`}
@@ -28,31 +33,40 @@ const Nav = () => {
             onClick={() => dispatch(NavActions.setPage("home"))}
           />
         </div>
-        {isAuthenticated && <><div className={classes.navLink}>
-          <FontAwesomeIcon
-            icon={faHeart}
-            onClick={() => dispatch(NavActions.setWishlist())}
-          />
-        </div>
-        <div className={classes.navLink}>
-          <FontAwesomeIcon
-            icon={faCartShopping}
-            onClick={() => dispatch(NavActions.setCart())}
-          />
-        </div>
-        <div className={classes.navLink}>
-          <FontAwesomeIcon icon={faArrowRightFromBracket}  
-          onClick ={()=>dispatch(authActions.signOut())}/>
-        </div></>}
-       {!isAuthenticated &&  <div
-          className={`${classes.navLink} ${page === "login" && classes.active}`}
-        >
-          <FontAwesomeIcon
-            icon={faArrowRightToBracket}
-            onClick={() => dispatch(NavActions.setPage("login"))}
-          />
-        </div>}
-        
+        {isAuthenticated && (
+          <>
+            <div className={classes.navLink}>
+              <FontAwesomeIcon
+                icon={faHeart}
+                onClick={() => dispatch(NavActions.setWishlist())}
+              />
+            </div>
+            <div className={classes.navLink}>
+              <FontAwesomeIcon
+                icon={faCartShopping}
+                onClick={() => dispatch(NavActions.setCart())}
+              />
+            </div>
+            <div className={classes.navLink}>
+              <FontAwesomeIcon
+                icon={faArrowRightFromBracket}
+                onClick={() => dispatch(authActions.signOut())}
+              />
+            </div>
+          </>
+        )}
+        {!isAuthenticated && (
+          <div
+            className={`${classes.navLink} ${
+              page === "login" && classes.active
+            }`}
+          >
+            <FontAwesomeIcon
+              icon={faArrowRightToBracket}
+              onClick={() => dispatch(NavActions.setPage("login"))}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

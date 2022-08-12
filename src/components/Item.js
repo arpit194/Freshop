@@ -7,25 +7,53 @@ import {
   faMinus,
   faCartPlus,
   faHeart as solidHeart,
-  faSpinner,
   faCircleNotch,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import useWishlist from "../hooks/wishlist-hook";
 import useAddToCart from "../hooks/addToCart-hook";
+import { useDispatch, useSelector } from "react-redux";
+import { wishActions } from "../Store/Wishlist";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Item = ({ product }) => {
   const { setWishlist, wishlisted, checkWishlist, wishlistLoading } =
     useWishlist();
-  const { addToCart } = useAddToCart();
+  const { addToCart, cartLoading } = useAddToCart();
   const [qty, setQty] = useState(1);
+  const wishlistEdited = useSelector((state) => state.wish.deleted);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     checkWishlist(product.id);
   }, []);
 
+  useEffect(() => {
+    if (wishlistEdited === product.id) {
+      checkWishlist(product.id);
+      dispatch(wishActions.clearDeleted());
+    }
+  }, [wishlistEdited]);
+
   const wishlist = async () => {
     const { itemId, type } = await setWishlist(product);
+  };
+
+  const cart = async () => {
+    const data = await addToCart(product, qty);
+    console.log(data);
+    if (data.success) {
+      toast.success("Added to cart", {
+        theme: "light",
+        position: "bottom-right",
+      });
+    } else if (!data.success) {
+      toast.error(data.message, {
+        theme: "light",
+        position: "bottom-right",
+      });
+    }
   };
 
   const setQuantity = (type) => {
@@ -49,6 +77,7 @@ const Item = ({ product }) => {
         }}
       ></div>
       <div className={classes.itemName}>{product.name}</div>
+      <div className={classes.price}>₹ {product.price}</div>
       <div className={classes.itemOptions}>
         <div className={classes.quantity}>
           <div
@@ -84,9 +113,14 @@ const Item = ({ product }) => {
           ) : (
             <FontAwesomeIcon icon={faHeart} onClick={wishlist} />
           )}
-          <FontAwesomeIcon icon={faCartPlus} />
+          {cartLoading ? (
+            <FontAwesomeIcon icon={faCircleNotch} className={classes.spinner} />
+          ) : (
+            <FontAwesomeIcon icon={faCartPlus} onClick={cart} />
+          )}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

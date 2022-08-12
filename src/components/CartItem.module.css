@@ -7,7 +7,6 @@
 
 .itemImage {
   width: 50%;
-  background-image: url(../../public/images/categories/fruits.jpg);
   background-position: center;
   background-size: cover;
   border-radius: 10px;
@@ -71,6 +70,12 @@
 .totalPrice {
   font-weight: 600;
   font-size: 1vw;
+}
+
+.disable {
+  background-color: #ccc;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 @media only screen and (min-width: 0px) and (max-width: 480px) {

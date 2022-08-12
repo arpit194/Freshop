@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { wishlist: [] };
+const initialState = { wishlist: [], deleted: null };
 
 const wishSlice = createSlice({
   name: "Wishlist",
@@ -13,12 +13,16 @@ const wishSlice = createSlice({
       state.wishlist = state.wishlist.filter(
         (item) => item.id !== action.payload
       );
+      state.deleted = action.payload;
     },
     addItem(state, action) {
       state.wishlist = [...state.wishlist, action.payload];
     },
     clearWishlist(state) {
       state.wishlist = [];
+    },
+    clearDeleted(state) {
+      state.deleted = null;
     },
   },
 });

@@ -32,6 +32,8 @@
 .cartItems {
   height: 70%;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .orderContainer {
@@ -57,6 +59,22 @@
   margin: 0 auto;
   color: var(--light);
   text-align: center;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  animation: 1s spin infinite linear;
+  color: #ccc;
+  margin: auto;
+  font-size: 5vw;
 }
 
 @media only screen and (min-width: 0px) and (max-width: 480px) {

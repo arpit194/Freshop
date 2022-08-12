@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { useSelector , useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { NavActions } from "../Store/Navigation";
 import { useHttpClient } from "./http-hook";
 
@@ -8,7 +8,7 @@ const useAddToCart = () => {
     (state) => state.auth
   );
   const { sendRequest, loading, error } = useHttpClient();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const addToCart = useCallback(async (item, qty) => {
     if (isLoggedIn) {
@@ -22,13 +22,11 @@ const useAddToCart = () => {
         { "Content-Type": "application/json" }
       );
 
-      if (!data.success) {
-        alert(data.message);
-      }
-    } else dispatch(NavActions.setPage("login"))
+      return data;
+    } else dispatch(NavActions.setPage("login"));
   });
 
-  return { addToCart };
+  return { addToCart, cartLoading: loading };
 };
 
 export default useAddToCart;

@@ -9,6 +9,12 @@ import { useSelector } from "react-redux";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
 import Wishlist from "./pages/Wishlist";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
+const stripePromise = loadStripe(
+  "pk_test_51LGlgSSB5olwzdqLZtYp0a3UxoKB4N6IuAgGpILEq5ocTscdyOGlHhUpMIWQwYyvlRiRrJdyImyOZZLcZivhLSyM00R15wso2E"
+);
 
 function App() {
   const { sendRequest } = useHttpClient();
@@ -17,16 +23,18 @@ function App() {
     cartOpen,
     wishlistOpen,
   } = useSelector((state) => state.nav);
-  
+
   return (
-    <div className={classes.App}>
-      <Nav />
-      {page === "home" && <Home />}
-      {page === "login" && <Login />}
-      {page === "category" && <Category />}
-      {cartOpen && <Cart />}
-      {wishlistOpen && <Wishlist />}
-    </div>
+    <Elements stripe={stripePromise}>
+      <div className={classes.App}>
+        <Nav />
+        {page === "home" && <Home />}
+        {page === "login" && <Login />}
+        {page === "category" && <Category />}
+        {cartOpen && <Cart />}
+        {wishlistOpen && <Wishlist />}
+      </div>
+    </Elements>
   );
 }
 
