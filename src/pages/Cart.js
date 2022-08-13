@@ -46,8 +46,7 @@ const Cart = () => {
       const cart = await sendRequest(`cart/?token=${token}`);
       dispatch(cartActions.setCart(cart));
     };
-    // if (cart.length === 0)
-    getCart();
+    if (cart.length === 0) getCart();
   }, []);
   return (
     <div className={`${classes.cartContainer}`}>

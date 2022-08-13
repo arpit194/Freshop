@@ -201,3 +201,71 @@
   border-radius: 5px;
   color: var(--light) !important;
 }
+
+@media only screen and (min-width: 0px) and (max-width: 480px) {
+  .card {
+    width: 90%;
+    height: 75%;
+    flex-direction: column;
+    padding: 1vw;
+  }
+
+  .imageContainer {
+    width: 100%;
+    height: 50%;
+  }
+
+  .image {
+    height: 100%;
+    background-size: contain;
+    border-radius: 25px;
+  }
+
+  .content {
+    width: 100%;
+    height: 50%;
+    padding: 2vw;
+  }
+
+  .productName {
+    height: 15%;
+    font-size: 5vw;
+  }
+
+  .productDetail {
+    height: 45%;
+    font-size: 4vw;
+    overflow: auto;
+  }
+
+  .prices {
+    height: 15%;
+    font-size: 5vw;
+  }
+
+  .price {
+    font-size: 5vw;
+  }
+
+  .description {
+    height: 100%;
+    overflow: auto;
+  }
+
+  .contentOptions {
+    height: 15%;
+  }
+
+  .quantity {
+    height: 100%;
+  }
+
+  .quantity input {
+    font-size: 4vw;
+  }
+
+  .button {
+    height: 100%;
+    font-size: 4vw;
+  }
+}

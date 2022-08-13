@@ -80,7 +80,9 @@ const ItemDetail = () => {
         <div className={classes.content}>
           <div className={classes.productName}>{product.name}</div>
 
-          <div className={classes.productDetail}>{product.description}</div>
+          <div className={classes.productDetail}>
+            <div className={classes.description}>{product.description}</div>
+          </div>
 
           <div className={classes.prices}>
             <div className={classes.price}>₹ {product.price}</div>
