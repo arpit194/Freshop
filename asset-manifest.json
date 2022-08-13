@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/Freshop/static/css/main.4fc7d847.css",
+    "main.css": "/Freshop/static/css/main.6c23a5a5.css",
     "main.js": "/Freshop/static/js/main.e671ce40.js",
     "static/media/background.jpg": "/Freshop/static/media/background.d2b8af544e409a3e75d9.jpg",
     "static/media/fruits.jpg": "/Freshop/static/media/fruits.786d400935e17f73a6ac.jpg",
@@ -8,11 +8,11 @@
     "static/media/undraw_online_payments_re_y8f2.svg": "/Freshop/static/media/undraw_online_payments_re_y8f2.8e2409ce9b0b474e517a.svg",
     "static/media/login4.svg": "/Freshop/static/media/login4.e55c408ad8725e7ba77e.svg",
     "index.html": "/Freshop/index.html",
-    "main.4fc7d847.css.map": "/Freshop/static/css/main.4fc7d847.css.map",
+    "main.6c23a5a5.css.map": "/Freshop/static/css/main.6c23a5a5.css.map",
     "main.e671ce40.js.map": "/Freshop/static/js/main.e671ce40.js.map"
   },
   "entrypoints": [
-    "static/css/main.4fc7d847.css",
+    "static/css/main.6c23a5a5.css",
     "static/js/main.e671ce40.js"
   ]
 }
